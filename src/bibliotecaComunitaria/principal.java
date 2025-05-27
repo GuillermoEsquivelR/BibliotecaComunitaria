@@ -46,7 +46,7 @@ public class principal extends JFrame {
 		JLabel lblPrincipal = new JLabel("Principal");
 		lblPrincipal.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPrincipal.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		lblPrincipal.setBounds(388, 46, 775, 111);
+		lblPrincipal.setBounds(388, 47, 775, 111);
 		contentPane.add(lblPrincipal);
 	}
 
