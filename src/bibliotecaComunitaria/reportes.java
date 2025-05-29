@@ -5,6 +5,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
 
 public class reportes extends JFrame {
 
@@ -20,6 +25,7 @@ public class reportes extends JFrame {
 				try {
 					reportes frame = new reportes();
 					frame.setVisible(true);
+					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -32,11 +38,32 @@ public class reportes extends JFrame {
 	 */
 	public reportes() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 1184, 863);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblReportes = new JLabel("Reporte mensual");
+		lblReportes.setHorizontalAlignment(SwingConstants.CENTER);
+		lblReportes.setFont(new Font("Tahoma", Font.PLAIN, 40));
+		lblReportes.setBounds(268, 37, 866, 61);
+		contentPane.add(lblReportes);
+		
+		JLabel lblMes = new JLabel("Mes");
+		lblMes.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMes.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblMes.setBounds(162, 220, 297, 52);
+		contentPane.add(lblMes);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(498, 211, 622, 61);
+		contentPane.add(comboBox);
+		
+		JButton btnNewButton = new JButton("Descargar");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnNewButton.setBounds(377, 426, 546, 126);
+		contentPane.add(btnNewButton);
 	}
-
 }

@@ -8,6 +8,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class principal extends JFrame {
 
@@ -46,8 +49,32 @@ public class principal extends JFrame {
 		JLabel lblPrincipal = new JLabel("Principal");
 		lblPrincipal.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPrincipal.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		lblPrincipal.setBounds(388, 47, 775, 111);
+		lblPrincipal.setBounds(400, 25, 775, 111);
 		contentPane.add(lblPrincipal);
+		
+		JButton btnRegistrarLibro = new JButton("Registrar Libro");
+		btnRegistrarLibro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnRegistrarLibro.setBounds(531, 134, 488, 86);
+		contentPane.add(btnRegistrarLibro);
+		
+		JButton btnPrestarLibro = new JButton("Prestar Libro");
+		btnPrestarLibro.setBounds(531, 254, 488, 86);
+		contentPane.add(btnPrestarLibro);
+		
+		JButton btnDevolverLibro = new JButton("Devolver Libro");
+		btnDevolverLibro.setBounds(531, 384, 488, 86);
+		contentPane.add(btnDevolverLibro);
+		
+		JButton btnBuscarLibro = new JButton("Buscar Libro");
+		btnBuscarLibro.setBounds(538, 504, 481, 86);
+		contentPane.add(btnBuscarLibro);
+		
+		JButton btnReportes = new JButton("Descargar reporte");
+		btnReportes.setBounds(531, 629, 495, 86);
+		contentPane.add(btnReportes);
 	}
 
 }
