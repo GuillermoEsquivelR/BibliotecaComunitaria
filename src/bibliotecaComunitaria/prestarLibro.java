@@ -11,6 +11,8 @@ import java.awt.Font;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class prestarLibro extends JFrame {
 
@@ -33,7 +35,6 @@ public class prestarLibro extends JFrame {
 				try {
 					prestarLibro frame = new prestarLibro();
 					frame.setVisible(true);
-					frame.setExtendedState(JFrame.MAXIMIZED_BOTH); //Maximiza la ventana
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -47,6 +48,7 @@ public class prestarLibro extends JFrame {
 	public prestarLibro() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1462, 782);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH); //Para maximizar la ventana tiene que ser en esta área
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
@@ -147,5 +149,16 @@ public class prestarLibro extends JFrame {
 		btnCargarDatos.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnCargarDatos.setBounds(856, 460, 433, 59);
 		contentPane.add(btnCargarDatos);
+		
+		JButton btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				principal abrirPrincipal = new principal();
+				abrirPrincipal.setVisible(true);
+				prestarLibro.this.dispose();
+			}
+		});
+		btnSalir.setBounds(13, 10, 150, 42);
+		contentPane.add(btnSalir);
 	}
 }
