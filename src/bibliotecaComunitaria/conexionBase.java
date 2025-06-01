@@ -106,6 +106,19 @@ public conexionBase() {
 		    }
 		}
 		
+		public ResultSet mostrarClientes() {
+		    try {
+		        Connection MyConn = DriverManager.getConnection(url1, user, password);
+		        Statement myStmt = MyConn.createStatement();
+		        String sql = "SELECT * FROM clientes";
+		        return myStmt.executeQuery(sql);
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        return null;
+		    }
+		}
+		
+		
 		public ResultSet devolverLibro(String fechaDev) {
 			try {
 				Connection MyConn = DriverManager.getConnection(url1, user, password);

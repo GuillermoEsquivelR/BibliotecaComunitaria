@@ -17,14 +17,15 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
 
 public class devolverLibro extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txfCliente;
 	private ResultSet myRs;
 	private JTextField txffecha;
+	conexionBase conexion = new conexionBase();
 
 	/**
 	 * Launch the application.
@@ -59,70 +60,35 @@ public class devolverLibro extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre Cliente:");
-		lblNewLabel_1.setBounds(56, 57, 123, 14);
+		lblNewLabel_1.setBounds(184, 33, 123, 14);
 		contentPane.add(lblNewLabel_1);
-		
-		txfCliente = new JTextField();
-		txfCliente.setBounds(176, 54, 96, 20);
-		contentPane.add(txfCliente);
-		txfCliente.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("---");
 		JLabel lblInicio = new JLabel("---");
 		JLabel lblFin = new JLabel("---");
 		JLabel lblLibro = new JLabel("---");
 		
-		JButton btnBuscarCliente = new JButton("Buscar:");
-		btnBuscarCliente.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String nombre = txfCliente.getText(); 
-		        conexionBase conexion = new conexionBase();
-		        ResultSet resultado = conexion.buscarCliente(nombre);
-		        try {
-					if (resultado != null && resultado.next()) {
-						 String nombreCliente = resultado.getString("nombreCliente");
-						 String fechainicio = resultado.getString("fechaPrestamo");
-					     String fechafinal = resultado.getString("fechaDevolucion");
-					     String nombreLibro = resultado.getString("nombreLibro"); 
-					     
-					     lblNombre.setText(nombreCliente);
-					     lblInicio.setText(fechainicio);
-					     lblFin.setText(fechafinal);
-					     lblLibro.setText(nombreLibro);
-					}
-					else {
-						JOptionPane.showMessageDialog(null, "El cliente " + nombre + " no se encuentra en nuestra base");
-					}
-				} catch (HeadlessException | SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
-		btnBuscarCliente.setBounds(356, 53, 89, 23);
-		contentPane.add(btnBuscarCliente);
-		
 		JLabel nombre = new JLabel("Nombre:");
 		nombre.setBounds(82, 95, 49, 14);
 		contentPane.add(nombre);
 		
 	
-		lblNombre.setBounds(175, 95, 49, 14);
+		lblNombre.setBounds(295, 95, 101, 14);
 		contentPane.add(lblNombre);
 		
 		JLabel inicio = new JLabel("Fecha en que pidió:");
-		inicio.setBounds(82, 120, 123, 14);
+		inicio.setBounds(82, 120, 149, 14);
 		contentPane.add(inicio);
 		
 		
-		lblInicio.setBounds(223, 120, 49, 14);
+		lblInicio.setBounds(295, 120, 101, 14);
 		contentPane.add(lblInicio);
 		
 		JLabel fin = new JLabel("Fecha que debe devolverse:");
-		fin.setBounds(82, 145, 158, 14);
+		fin.setBounds(82, 145, 190, 14);
 		contentPane.add(fin);
 		
-		lblFin.setBounds(258, 145, 49, 14);
+		lblFin.setBounds(295, 145, 101, 14);
 		contentPane.add(lblFin);
 		
 		
@@ -138,16 +104,56 @@ public class devolverLibro extends JFrame {
 		contentPane.add(lblNewLabel_3);
 		
 		txffecha = new JTextField();
-		txffecha.setBounds(186, 217, 96, 20);
+		txffecha.setBounds(216, 220, 96, 20);
 		contentPane.add(txffecha);
 		txffecha.setColumns(10);
 		
 		JButton btnDevolver = new JButton("Devolver");
 		btnDevolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String fechaDev = txffecha.getText(); 
+		       ResultSet resultado = conexion.devolverLibro(fechaDev);
+			
 			}
+
 		});
 		btnDevolver.setBounds(356, 262, 89, 23);
 		contentPane.add(btnDevolver);
+		
+		JComboBox comboClientes = new JComboBox();
+		ResultSet resultado = conexion.mostrarClientes();
+		 try {
+			while (resultado.next()) {
+			        comboClientes.addItem(resultado.getString("nombreCliente"));
+			 }
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		 contentPane.add(comboClientes);
+		comboClientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String nombreSeleccionado = (String) comboClientes.getSelectedItem();
+		        ResultSet resultado = conexion.buscarCliente(nombreSeleccionado);
+		        try {
+					if (resultado != null && resultado.next()) {
+					    String nombreCliente = resultado.getString("nombreCliente");
+					    String fechainicio = resultado.getString("fechaPrestamo");
+					    String fechafinal = resultado.getString("fechaDevolucion");
+					    String nombreLibro = resultado.getString("nombreLibro");
+
+					    lblNombre.setText(nombreCliente);
+					    lblInicio.setText(fechainicio);
+					    lblFin.setText(fechafinal);
+					    lblLibro.setText(nombreLibro);
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		comboClientes.setBounds(290, 29, 128, 22);
+		contentPane.add(comboClientes);
 	}
 }
