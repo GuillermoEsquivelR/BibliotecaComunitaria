@@ -15,6 +15,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class buscar extends JFrame {
 
@@ -43,33 +46,46 @@ public class buscar extends JFrame {
 	 * Create the frame.
 	 */
 	public buscar() {
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 1147, 636);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(143, 188, 143));
+		contentPane.setForeground(new Color(0, 128, 0));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblbuscar = new JLabel("Buscar:");
-		lblbuscar.setBounds(41, 11, 49, 14);
-		contentPane.add(lblbuscar);
-		
 		JLabel lblLibroABuscar = new JLabel("Libro a buscar:");
-		lblLibroABuscar.setBounds(41, 59, 116, 14);
+		lblLibroABuscar.setFont(new Font("Tw Cen MT", Font.PLAIN, 39));
+		lblLibroABuscar.setBounds(418, 89, 369, 39);
 		contentPane.add(lblLibroABuscar);
 		
 		txfBuscar = new JTextField();
-		txfBuscar.setBounds(167, 56, 96, 20);
+		txfBuscar.setBackground(new Color(238, 232, 170));
+		txfBuscar.setBounds(717, 74, 260, 54);
 		contentPane.add(txfBuscar);
 		txfBuscar.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("---");
+		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblNombre.setForeground(new Color(85, 107, 47));
 		JLabel lblAutor = new JLabel("---");
+		lblAutor.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblAutor.setForeground(new Color(85, 107, 47));
 		JLabel lblExistencia = new JLabel("---");
+		lblExistencia.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblExistencia.setForeground(new Color(85, 107, 47));
 		JLabel lblCat = new JLabel("---");
+		lblCat.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblCat.setForeground(new Color(85, 107, 47));
 		
 		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.setBackground(new Color(238, 232, 170));
+		btnBuscar.addKeyListener(new KeyAdapter() {
+		});
+		btnBuscar.setFont(new Font("Tw Cen MT", Font.PLAIN, 40));
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nombre = txfBuscar.getText(); 
@@ -95,43 +111,60 @@ public class buscar extends JFrame {
 					e1.printStackTrace();
 				}
 		       	}});
-		btnBuscar.setBounds(262, 198, 89, 23);
+		btnBuscar.setBounds(788, 491, 260, 80);
 		contentPane.add(btnBuscar);
 		
 		JLabel lblnombre = new JLabel("Nombre:");
-		lblnombre.setForeground(Color.BLUE);
-		lblnombre.setBounds(108, 114, 76, 14);
+		lblnombre.setFont(new Font("Consolas", Font.BOLD, 32));
+		lblnombre.setForeground(Color.DARK_GRAY);
+		lblnombre.setBounds(418, 199, 388, 86);
 		contentPane.add(lblnombre);
 		
 		
-		lblNombre.setBounds(194, 114, 132, 14);
+		lblNombre.setBounds(762, 199, 286, 51);
 		contentPane.add(lblNombre);
 		
 		JLabel lblautor = new JLabel("Autor:");
-		lblautor.setForeground(Color.BLUE);
-		lblautor.setBounds(108, 144, 49, 14);
+		lblautor.setFont(new Font("Consolas", Font.BOLD, 32));
+		lblautor.setForeground(Color.DARK_GRAY);
+		lblautor.setBounds(418, 285, 388, 54);
 		contentPane.add(lblautor);
 		
 		
-		lblAutor.setBounds(194, 144, 96, 14);
+		lblAutor.setBounds(762, 269, 286, 51);
 		contentPane.add(lblAutor);
 		
 		JLabel lblexistencia = new JLabel("Existencias:");
-		lblexistencia.setForeground(Color.BLUE);
-		lblexistencia.setBounds(108, 202, 75, 14);
+		lblexistencia.setFont(new Font("Consolas", Font.BOLD, 32));
+		lblexistencia.setForeground(Color.DARK_GRAY);
+		lblexistencia.setBounds(418, 425, 388, 54);
 		contentPane.add(lblexistencia);
 		
 		
-		lblExistencia.setBounds(194, 198, 49, 14);
+		lblExistencia.setBounds(762, 420, 286, 51);
 		contentPane.add(lblExistencia);
 		
 		JLabel lblcat = new JLabel("Categoría:");
-		lblcat.setForeground(Color.BLUE);
-		lblcat.setBounds(108, 169, 75, 14);
+		lblcat.setFont(new Font("Consolas", Font.BOLD, 32));
+		lblcat.setForeground(Color.DARK_GRAY);
+		lblcat.setBounds(418, 346, 388, 68);
 		contentPane.add(lblcat);
 		
 		
-		lblCat.setBounds(194, 169, 116, 14);
+		lblCat.setBounds(762, 337, 286, 51);
 		contentPane.add(lblCat);
+		
+		JButton btnAtras = new JButton("Atrás");
+		btnAtras.setBackground(new Color(238, 232, 170));
+		btnAtras.setFont(new Font("Tw Cen MT", Font.PLAIN, 32));
+		btnAtras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				principal abrirPrincipal = new principal();
+				abrirPrincipal.setVisible(true);
+				buscar.this.dispose();
+			}
+		});
+		btnAtras.setBounds(59, 11, 170, 48);
+		contentPane.add(btnAtras);
 	}
 }

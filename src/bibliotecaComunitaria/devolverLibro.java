@@ -1,6 +1,9 @@
 package bibliotecaComunitaria;
 
 import java.awt.EventQueue;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.awt.HeadlessException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,6 +29,7 @@ public class devolverLibro extends JFrame {
 	private ResultSet myRs;
 	private JTextField txffecha;
 	conexionBase conexion = new conexionBase();
+	 DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
 	/**
 	 * Launch the application.
@@ -47,6 +51,7 @@ public class devolverLibro extends JFrame {
 	 * Create the frame.
 	 */
 	public devolverLibro() {
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 576, 450);
 		contentPane = new JPanel();
@@ -56,11 +61,11 @@ public class devolverLibro extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Devolver libro:");
-		lblNewLabel.setBounds(21, 11, 158, 14);
+		lblNewLabel.setBounds(116, 8, 158, 14);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre Cliente:");
-		lblNewLabel_1.setBounds(184, 33, 123, 14);
+		lblNewLabel_1.setBounds(194, 53, 123, 14);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblNombre = new JLabel("---");
@@ -107,25 +112,13 @@ public class devolverLibro extends JFrame {
 		txffecha.setBounds(216, 220, 96, 20);
 		contentPane.add(txffecha);
 		txffecha.setColumns(10);
-		
-		JButton btnDevolver = new JButton("Devolver");
-		btnDevolver.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String fechaDev = txffecha.getText(); 
-		       ResultSet resultado = conexion.devolverLibro(fechaDev);
-			
-			}
-
-		});
-		btnDevolver.setBounds(356, 262, 89, 23);
-		contentPane.add(btnDevolver);
-		
-		JComboBox comboClientes = new JComboBox();
+		JComboBox<String>comboClientes = new JComboBox();
 		ResultSet resultado = conexion.mostrarClientes();
 		 try {
 			while (resultado.next()) {
 			        comboClientes.addItem(resultado.getString("nombreCliente"));
 			 }
+			
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -153,7 +146,62 @@ public class devolverLibro extends JFrame {
 				}
 			}
 		});
-		comboClientes.setBounds(290, 29, 128, 22);
+		comboClientes.setBounds(300, 49, 128, 22);
 		contentPane.add(comboClientes);
+		
+		JButton btnSalir = new JButton("Regresar");
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				principal abrirPrincipal = new principal();
+				abrirPrincipal.setVisible(true);
+				devolverLibro.this.dispose();
+			}
+		});
+		btnSalir.setBounds(13, 10, 78, 37);
+		contentPane.add(btnSalir);
+		
+		JButton btnDevolver = new JButton("Devolver");
+		btnDevolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String cliente = (String) comboClientes.getSelectedItem();
+		        ResultSet resultado = conexion.buscarCliente(cliente);
+		        try {
+					if (resultado != null && resultado.next()) {
+						 String nombreLibro = resultado.getString("nombreLibro");
+					    String fechaFinal = resultado.getString("fechaDevolucion");
+					    
+					    String fechaHoy = txffecha.getText();
+					   
+					    LocalDate fechaPactada = LocalDate.parse(fechaFinal, formato);
+		                LocalDate fechaReal = LocalDate.parse(fechaHoy, formato);
+		                if (fechaReal.isAfter(fechaPactada)) {
+		                    JOptionPane.showMessageDialog(null, "El libro fue devuelto tarde. Penalización de $50.");
+		                } else {
+		                    JOptionPane.showMessageDialog(null, "Libro devuelto a tiempo. ¡Gracias!");
+		                }
+		                conexion.aumentarExistencia(nombreLibro);
+						comboClientes.removeItem(cliente);
+		                lblNombre.setText("---");
+		                lblInicio.setText("---");
+		                lblFin.setText("---");
+		                lblLibro.setText("---");
+					    
+					}} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}}}
+		);
+		btnDevolver.setBounds(339, 281, 89, 23);
+		contentPane.add(btnDevolver);
+		
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton.setBounds(185, 346, 89, 23);
+		contentPane.add(btnNewButton);
+		
+		
 	}
 }
