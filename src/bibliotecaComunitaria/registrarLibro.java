@@ -53,7 +53,7 @@ public class registrarLibro extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lbl1 = new JLabel("Registrar un libro:");
-		lbl1.setBounds(26, 22, 130, 14);
+		lbl1.setBounds(67, 39, 130, 14);
 		contentPane.add(lbl1);
 		
 		JLabel lblNombre = new JLabel("Nombre del libro:");
@@ -106,5 +106,16 @@ public class registrarLibro extends JFrame {
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Clásicos", "Literatura", "Superación", "NBS", "Juveniles", "Infantiles", "Cocina", "Historia", "Ficción"}));
 		comboBox.setBounds(164, 107, 96, 22);
 		contentPane.add(comboBox);
+		
+		JButton btnAtras = new JButton("Atras");
+		btnAtras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				principal abrirPrincipal = new principal();
+				abrirPrincipal.setVisible(true);
+				registrarLibro.this.dispose();
+			}
+		});
+		btnAtras.setBounds(10, 8, 96, 21);
+		contentPane.add(btnAtras);
 	}
 }

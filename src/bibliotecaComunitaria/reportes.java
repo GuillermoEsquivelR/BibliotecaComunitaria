@@ -10,6 +10,8 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class reportes extends JFrame {
 
@@ -61,9 +63,20 @@ public class reportes extends JFrame {
 		comboBox.setBounds(498, 211, 622, 61);
 		contentPane.add(comboBox);
 		
-		JButton btnNewButton = new JButton("Descargar");
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		btnNewButton.setBounds(377, 426, 546, 126);
-		contentPane.add(btnNewButton);
+		JButton btnDescargar = new JButton("Descargar");
+		btnDescargar.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnDescargar.setBounds(377, 426, 546, 126);
+		contentPane.add(btnDescargar);
+		
+		JButton btnAtras = new JButton("Atras");
+		btnAtras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				principal abrirPrincipal = new principal();
+				abrirPrincipal.setVisible(true);
+				reportes.this.dispose();
+			}
+		});
+		btnAtras.setBounds(10, 10, 243, 37);
+		contentPane.add(btnAtras);
 	}
 }

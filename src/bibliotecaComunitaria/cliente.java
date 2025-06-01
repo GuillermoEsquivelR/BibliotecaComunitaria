@@ -2,16 +2,12 @@ package bibliotecaComunitaria;
 
 public class cliente {
 	String nombre;
-	String identificacionCliente;
 	String fechaPrestamo;
 	String fechaDevolucion;
 	String libro;
 	
-	public cliente(String nombre, String identificacionCliente, String fechaPrestamo, String fechaDevolucion,
-			String libro) {
-		
+	public cliente(String nombre, String fechaPrestamo, String fechaDevolucion, String libro) {
 		this.nombre = nombre;
-		this.identificacionCliente = identificacionCliente;
 		this.fechaPrestamo = fechaPrestamo;
 		this.fechaDevolucion = fechaDevolucion;
 		this.libro = libro;
@@ -23,14 +19,6 @@ public class cliente {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public String getIdentificacionCliente() {
-		return identificacionCliente;
-	}
-
-	public void setIdentificacionCliente(String identificacionCliente) {
-		this.identificacionCliente = identificacionCliente;
 	}
 
 	public String getFechaPrestamo() {

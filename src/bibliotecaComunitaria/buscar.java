@@ -52,7 +52,7 @@ public class buscar extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblbuscar = new JLabel("Buscar:");
-		lblbuscar.setBounds(41, 11, 49, 14);
+		lblbuscar.setBounds(41, 35, 49, 14);
 		contentPane.add(lblbuscar);
 		
 		JLabel lblLibroABuscar = new JLabel("Libro a buscar:");
@@ -133,5 +133,16 @@ public class buscar extends JFrame {
 		
 		lblCat.setBounds(194, 169, 116, 14);
 		contentPane.add(lblCat);
+		
+		JButton btnAtras = new JButton("Atras");
+		btnAtras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				principal abrirPrincipal = new principal();
+				abrirPrincipal.setVisible(true);
+				buscar.this.dispose();
+			}
+		});
+		btnAtras.setBounds(5, 4, 110, 21);
+		contentPane.add(btnAtras);
 	}
 }

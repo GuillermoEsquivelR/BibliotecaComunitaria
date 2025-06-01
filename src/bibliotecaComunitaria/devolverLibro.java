@@ -55,7 +55,7 @@ public class devolverLibro extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Devolver libro:");
-		lblNewLabel.setBounds(21, 11, 158, 14);
+		lblNewLabel.setBounds(56, 40, 158, 14);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre Cliente:");
@@ -149,5 +149,16 @@ public class devolverLibro extends JFrame {
 		});
 		btnDevolver.setBounds(356, 262, 89, 23);
 		contentPane.add(btnDevolver);
+		
+		JButton btnAtras = new JButton("Atras");
+		btnAtras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				principal abrirPrincipal = new principal();
+				abrirPrincipal.setVisible(true);
+				devolverLibro.this.dispose();
+			}
+		});
+		btnAtras.setBounds(10, 10, 101, 20);
+		contentPane.add(btnAtras);
 	}
 }

@@ -106,6 +106,17 @@ public class principal extends JFrame {
 		});
 		btnReportes.setBounds(531, 629, 495, 86);
 		contentPane.add(btnReportes);
+		
+		JButton btnCerrarSesion = new JButton("Cerrar Sesión");
+		btnCerrarSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				InicioSesion abrirInicioSesion = new InicioSesion();
+				abrirInicioSesion.setVisible(true);
+				principal.this.dispose();
+			}
+		});
+		btnCerrarSesion.setBounds(1228, 25, 221, 53);
+		contentPane.add(btnCerrarSesion);
 	}
 
 }
