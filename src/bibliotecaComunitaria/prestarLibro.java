@@ -225,6 +225,10 @@ public class prestarLibro extends JFrame {
 		JButton btnPrestarLibro = new JButton("Prestar libro");
 		btnPrestarLibro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int existenciasLibro = Integer.parseInt(lblExistenciaLibro.getText());
+				if (existenciasLibro == 0) {
+					JOptionPane.showMessageDialog(null, "No hay una copia disponible para prestar en este momento", "No disponible", JOptionPane.ERROR_MESSAGE);
+				} else {
 				conexionBase conexion = new conexionBase();
 				String cliente = textNombreCliente.getText();
 				String diaPrestamo = textDiaPrestamo.getText();
@@ -247,6 +251,7 @@ public class prestarLibro extends JFrame {
 				 boolean libroPrestado = conexion.registrarPrestamoMes(nombreLibro, mesPrestamo);
 				 boolean disminuir = conexion.disminuirExistencia(nombreLibro);
 				}
+			}
 		});
 		btnPrestarLibro.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnPrestarLibro.setBounds(10, 464, 354, 59);

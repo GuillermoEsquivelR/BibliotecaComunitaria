@@ -167,7 +167,7 @@ public class devolverLibro extends JFrame {
 		        ResultSet resultado = conexion.buscarCliente(cliente);
 		        try {
 					if (resultado != null && resultado.next()) {
-						 String nombreLibro = resultado.getString("nombreLibro");
+						String nombreLibro = resultado.getString("nombreLibro");
 					    String fechaFinal = resultado.getString("fechaDevolucion");
 					    
 					    String fechaHoy = txffecha.getText();
@@ -180,6 +180,7 @@ public class devolverLibro extends JFrame {
 		                    JOptionPane.showMessageDialog(null, "Libro devuelto a tiempo. ¡Gracias!");
 		                }
 		                conexion.aumentarExistencia(nombreLibro);
+		                conexion.eliminarCliente(cliente, nombreLibro);
 						comboClientes.removeItem(cliente);
 		                lblNombre.setText("---");
 		                lblInicio.setText("---");

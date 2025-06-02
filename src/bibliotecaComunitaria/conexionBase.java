@@ -460,11 +460,11 @@ public conexionBase() {
 		}
 		
 		
-		public boolean eliminarCliente(String nombre) {
+		public boolean eliminarCliente(String nombre, String libro) {
 			 try {
 				 Connection MyConn = DriverManager.getConnection(url1, user, password);
 				 Statement myStmt  = MyConn.createStatement();
-				 String sql ="DELETE FROM clientes WHERE nombreCliente = '" + nombre + "'";
+				 String sql = "DELETE FROM clientes WHERE nombreCliente = '" + nombre + "' AND nombreLibro = '" + libro + "'";
 			     myStmt.executeUpdate(sql);
 			     return true;
 			} catch (SQLException e) {
