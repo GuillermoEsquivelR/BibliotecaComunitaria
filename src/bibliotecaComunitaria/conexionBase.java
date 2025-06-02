@@ -355,15 +355,70 @@ public conexionBase() {
 			return true;
 		}
 		
+		public ResultSet obtenerPrestamosMensuales(int indice) {
+			ResultSet resultado = null;
+			int mes = indice + 1;
+			try {
+			Connection MyConn = DriverManager.getConnection(url1, user, password);
+			Statement myStmt = MyConn.createStatement();
+			String sql;
+				switch (mes) {
+				case 1:
+					sql = "SELECT * FROM prestamosenero";
+					resultado = myStmt.executeQuery(sql);
+					break;
+				case 2:
+					sql = "SELECT * FROM prestamosfebrero";
+					resultado = myStmt.executeQuery(sql);
+					break;
+				case 3:
+					sql = "SELECT * FROM prestamosmarzo";
+					resultado = myStmt.executeQuery(sql);
+					break;
+			case 4:
+					sql = "SELECT * FROM prestamosabril";
+					resultado = myStmt.executeQuery(sql);
+					break;
+			case 5:
+					sql = "SELECT * FROM prestamosmayo";
+					resultado = myStmt.executeQuery(sql);
+					break;
+			case 6:
+					sql = "SELECT * FROM prestamosjunio";
+					resultado = myStmt.executeQuery(sql);
+					break;
+			case 7:
+					sql = "SELECT * FROM prestamosjulio";
+					resultado = myStmt.executeQuery(sql);
+					break;
+			case 8:
+					sql = "SELECT * FROM prestamosagosto";
+					resultado = myStmt.executeQuery(sql);
+					break;
+			case 9:
+					sql = "SELECT * FROM prestamosseptiembre";
+					resultado = myStmt.executeQuery(sql);
+					break;
+			case 10:
+					sql = "SELECT * FROM prestamosoctubre";
+					resultado = myStmt.executeQuery(sql);
+					break;
+			case 11:
+					sql = "SELECT * FROM prestamosnoviembre";
+					resultado = myStmt.executeQuery(sql);
+					break;
+			case 12:
+					sql = "SELECT * FROM prestamosdiciembre";
+					resultado = myStmt.executeQuery(sql);
+					break;
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return resultado;
 		
-		
-		
-		
-		
-		
-		
-		
-		
+		}	
 		
 	
 }

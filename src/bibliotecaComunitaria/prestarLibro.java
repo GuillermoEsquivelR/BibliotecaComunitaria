@@ -22,6 +22,9 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+import java.awt.Color;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class prestarLibro extends JFrame {
 
@@ -100,6 +103,13 @@ public class prestarLibro extends JFrame {
 		textNombreCliente.setColumns(10);
 		
 		textDiaPrestamo = new JTextField();
+		textDiaPrestamo.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (textDiaPrestamo.getText().equals("DD"))
+				textDiaPrestamo.setText("");
+			}
+		});
 		textDiaPrestamo.setHorizontalAlignment(SwingConstants.CENTER);
 		textDiaPrestamo.setText("DD");
 		textDiaPrestamo.setBounds(145, 290, 51, 21);
@@ -107,6 +117,13 @@ public class prestarLibro extends JFrame {
 		textDiaPrestamo.setColumns(10);
 		
 		textMesPrestamo = new JTextField();
+		textMesPrestamo.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (textMesPrestamo.getText().equals("MM"))
+					textMesPrestamo.setText("");
+			}
+		});
 		textMesPrestamo.setHorizontalAlignment(SwingConstants.CENTER);
 		textMesPrestamo.setText("MM");
 		textMesPrestamo.setBounds(227, 291, 51, 19);
@@ -114,6 +131,13 @@ public class prestarLibro extends JFrame {
 		textMesPrestamo.setColumns(10);
 		
 		textAñoPrestamo = new JTextField();
+		textAñoPrestamo.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (textAñoPrestamo.getText().equals("AAAA"))
+					textAñoPrestamo.setText("");
+			}
+		});
 		textAñoPrestamo.setHorizontalAlignment(SwingConstants.CENTER);
 		textAñoPrestamo.setText("AAAA");
 		textAñoPrestamo.setBounds(313, 291, 51, 19);
@@ -129,6 +153,13 @@ public class prestarLibro extends JFrame {
 		contentPane.add(lblFechaDevolucion);
 		
 		textDiaDevolucion = new JTextField();
+		textDiaDevolucion.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (textDiaDevolucion.getText().equals("DD"))
+					textDiaDevolucion.setText("");
+			}
+		});
 		textDiaDevolucion.setHorizontalAlignment(SwingConstants.CENTER);
 		textDiaDevolucion.setText("DD");
 		textDiaDevolucion.setBounds(145, 339, 51, 23);
@@ -136,6 +167,13 @@ public class prestarLibro extends JFrame {
 		textDiaDevolucion.setColumns(10);
 		
 		textMesDevolucion = new JTextField();
+		textMesDevolucion.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (textMesDevolucion.getText().equals("MM"))
+					textMesDevolucion.setText("");
+			}
+		});
 		textMesDevolucion.setHorizontalAlignment(SwingConstants.CENTER);
 		textMesDevolucion.setText("MM");
 		textMesDevolucion.setBounds(227, 341, 51, 19);
@@ -143,6 +181,13 @@ public class prestarLibro extends JFrame {
 		textMesDevolucion.setColumns(10);
 		
 		textAñoDevolucion = new JTextField();
+		textAñoDevolucion.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (textAñoDevolucion.getText().equals("AAAA"))
+					textAñoDevolucion.setText("");
+			}
+		});
 		textAñoDevolucion.setHorizontalAlignment(SwingConstants.CENTER);
 		textAñoDevolucion.setText("AAAA");
 		textAñoDevolucion.setBounds(313, 341, 51, 19);
@@ -226,10 +271,12 @@ public class prestarLibro extends JFrame {
 		listLibros.setModel(modeloLibros);
 		
 		JButton btnCargarDatos = new JButton("Cargar datos");
+		btnCargarDatos.setBackground(new Color(255, 0, 0));
 		btnCargarDatos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (datosCargados == false) {
 					datosCargados = true;
+					btnCargarDatos.setBackground(Color.green);
 					int i = 0;
 					conexionBase conexion = new conexionBase();
 					resultado = conexion.obtenerLibros();
