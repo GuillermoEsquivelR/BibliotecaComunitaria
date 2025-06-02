@@ -6,6 +6,7 @@ import java.awt.HeadlessException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -15,6 +16,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
 
 public class buscar extends JFrame {
 
@@ -22,6 +30,9 @@ public class buscar extends JFrame {
 	private JPanel contentPane;
 	private JTextField txfBuscar;
 	private ResultSet myRs;
+	private JTable table;
+	private ResultSet prestamosPorCat;
+	DefaultTableModel modeloTabla = new DefaultTableModel();
 
 	/**
 	 * Launch the application.
@@ -43,33 +54,46 @@ public class buscar extends JFrame {
 	 * Create the frame.
 	 */
 	public buscar() {
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 1147, 636);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(143, 188, 143));
+		contentPane.setForeground(new Color(0, 128, 0));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblbuscar = new JLabel("Buscar:");
-		lblbuscar.setBounds(41, 35, 49, 14);
-		contentPane.add(lblbuscar);
-		
 		JLabel lblLibroABuscar = new JLabel("Libro a buscar:");
-		lblLibroABuscar.setBounds(41, 59, 116, 14);
+		lblLibroABuscar.setFont(new Font("Tw Cen MT", Font.PLAIN, 39));
+		lblLibroABuscar.setBounds(0, 69, 369, 39);
 		contentPane.add(lblLibroABuscar);
 		
 		txfBuscar = new JTextField();
-		txfBuscar.setBounds(167, 56, 96, 20);
+		txfBuscar.setBackground(new Color(238, 232, 170));
+		txfBuscar.setBounds(0, 118, 260, 54);
 		contentPane.add(txfBuscar);
 		txfBuscar.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("---");
+		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblNombre.setForeground(new Color(85, 107, 47));
 		JLabel lblAutor = new JLabel("---");
+		lblAutor.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblAutor.setForeground(new Color(85, 107, 47));
 		JLabel lblExistencia = new JLabel("---");
+		lblExistencia.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblExistencia.setForeground(new Color(85, 107, 47));
 		JLabel lblCat = new JLabel("---");
+		lblCat.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblCat.setForeground(new Color(85, 107, 47));
 		
 		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.setBackground(new Color(238, 232, 170));
+		btnBuscar.addKeyListener(new KeyAdapter() {
+		});
+		btnBuscar.setFont(new Font("Tw Cen MT", Font.PLAIN, 40));
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nombre = txfBuscar.getText(); 
@@ -95,46 +119,52 @@ public class buscar extends JFrame {
 					e1.printStackTrace();
 				}
 		       	}});
-		btnBuscar.setBounds(262, 198, 89, 23);
+		btnBuscar.setBounds(10, 489, 260, 80);
 		contentPane.add(btnBuscar);
 		
 		JLabel lblnombre = new JLabel("Nombre:");
-		lblnombre.setForeground(Color.BLUE);
-		lblnombre.setBounds(108, 114, 76, 14);
+		lblnombre.setFont(new Font("Consolas", Font.BOLD, 32));
+		lblnombre.setForeground(Color.DARK_GRAY);
+		lblnombre.setBounds(0, 164, 388, 86);
 		contentPane.add(lblnombre);
 		
 		
-		lblNombre.setBounds(194, 114, 132, 14);
+		lblNombre.setBounds(146, 175, 286, 51);
 		contentPane.add(lblNombre);
 		
 		JLabel lblautor = new JLabel("Autor:");
-		lblautor.setForeground(Color.BLUE);
-		lblautor.setBounds(108, 144, 49, 14);
+		lblautor.setFont(new Font("Consolas", Font.BOLD, 32));
+		lblautor.setForeground(Color.DARK_GRAY);
+		lblautor.setBounds(0, 254, 388, 54);
 		contentPane.add(lblautor);
 		
 		
-		lblAutor.setBounds(194, 144, 96, 14);
+		lblAutor.setBounds(146, 260, 286, 51);
 		contentPane.add(lblAutor);
 		
 		JLabel lblexistencia = new JLabel("Existencias:");
-		lblexistencia.setForeground(Color.BLUE);
-		lblexistencia.setBounds(108, 202, 75, 14);
+		lblexistencia.setFont(new Font("Consolas", Font.BOLD, 32));
+		lblexistencia.setForeground(Color.DARK_GRAY);
+		lblexistencia.setBounds(0, 425, 388, 54);
 		contentPane.add(lblexistencia);
 		
 		
-		lblExistencia.setBounds(194, 198, 49, 14);
+		lblExistencia.setBounds(241, 420, 286, 51);
 		contentPane.add(lblExistencia);
 		
 		JLabel lblcat = new JLabel("Categoría:");
-		lblcat.setForeground(Color.BLUE);
-		lblcat.setBounds(108, 169, 75, 14);
+		lblcat.setFont(new Font("Consolas", Font.BOLD, 32));
+		lblcat.setForeground(Color.DARK_GRAY);
+		lblcat.setBounds(0, 335, 388, 68);
 		contentPane.add(lblcat);
 		
 		
-		lblCat.setBounds(194, 169, 116, 14);
+		lblCat.setBounds(215, 337, 286, 51);
 		contentPane.add(lblCat);
 		
-		JButton btnAtras = new JButton("Atras");
+		JButton btnAtras = new JButton("Atrás");
+		btnAtras.setBackground(new Color(238, 232, 170));
+		btnAtras.setFont(new Font("Tw Cen MT", Font.PLAIN, 32));
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				principal abrirPrincipal = new principal();
@@ -142,7 +172,52 @@ public class buscar extends JFrame {
 				buscar.this.dispose();
 			}
 		});
-		btnAtras.setBounds(5, 4, 110, 21);
+		btnAtras.setBounds(59, 11, 170, 48);
 		contentPane.add(btnAtras);
+		
+		JLabel lblLibrosCategoria = new JLabel("Buscar libros ocupados por categoría:");
+		lblLibrosCategoria.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblLibrosCategoria.setBounds(542, 69, 567, 39);
+		contentPane.add(lblLibrosCategoria);
+		
+		JComboBox comboCategorias = new JComboBox();
+		comboCategorias.setModel(new DefaultComboBoxModel(new String[] {"Clásicos", "Literatura", "Superación", "NBS", "Juveniles", "Infantiles", "Cocina", "Historia", "Ficción"}));
+		comboCategorias.setBounds(716, 134, 407, 38);
+		contentPane.add(comboCategorias);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(553, 183, 541, 248);
+		contentPane.add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		table.setModel(modeloTabla);
+		
+		JButton btnBuscarPorCat = new JButton("Buscar");
+		btnBuscarPorCat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+				String categoria = comboCategorias.getSelectedItem().toString();
+				conexionBase conexion = new conexionBase();
+				prestamosPorCat = conexion.obtenerPrestadosPorCat(categoria);
+				modeloTabla.setRowCount(0);
+				modeloTabla.setColumnCount(0);
+				String nombreCliente;
+				String nombreLibro;
+				modeloTabla.addColumn("Nombre del cliente");
+				modeloTabla.addColumn("Nombre del libro prestado");
+				while (prestamosPorCat.next()) {
+					nombreCliente = prestamosPorCat.getString(1);
+					nombreLibro = prestamosPorCat.getString(2);
+					String [] filas = {nombreCliente, nombreLibro};
+					modeloTabla.addRow(filas);
+				}
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		});
+		btnBuscarPorCat.setBounds(665, 441, 322, 54);
+		contentPane.add(btnBuscarPorCat);
 	}
 }

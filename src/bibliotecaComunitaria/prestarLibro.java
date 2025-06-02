@@ -236,7 +236,8 @@ public class prestarLibro extends JFrame {
 				String añoDevolucion = textAñoDevolucion.getText();
 				String fechaDevolucion = diaDevolucion+"-"+mesDevolucion+"-"+añoDevolucion;
 				String nombreLibro = lblLibro.getText();
-				 boolean resultado= conexion.registrarCliente(cliente, fechaPrestamo, fechaDevolucion, nombreLibro);
+				
+				boolean resultado= conexion.registrarCliente(cliente, fechaPrestamo, fechaDevolucion, nombreLibro);
 				 if(resultado) {
 					 JOptionPane.showMessageDialog(null, "Préstamo agregado correctamente a la base de datos");
 				 }
@@ -244,8 +245,8 @@ public class prestarLibro extends JFrame {
 					 JOptionPane.showMessageDialog(null, "No se pudo agregar el préstamo");	
 				 }
 				 boolean libroPrestado = conexion.registrarPrestamoMes(nombreLibro, mesPrestamo);
-				 boolean disminuir = conexion.disminuirExistencia(nombreLibro); 
-			}
+				 boolean disminuir = conexion.disminuirExistencia(nombreLibro);
+				}
 		});
 		btnPrestarLibro.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnPrestarLibro.setBounds(10, 464, 354, 59);

@@ -94,7 +94,7 @@ public conexionBase() {
 		        return null;
 		    }
 		}
-		
+
 		public ResultSet buscarCliente(String nombre) {
 		    try {
 		        Connection MyConn = DriverManager.getConnection(url1, user, password);
@@ -107,6 +107,22 @@ public conexionBase() {
 		        return null;
 		    }
 		}
+		
+		
+		
+		
+		public ResultSet mostrarClientes() {
+		    try {
+		        Connection MyConn = DriverManager.getConnection(url1, user, password);
+		        Statement myStmt = MyConn.createStatement();
+		        String sql = "SELECT * FROM clientes";
+		        return myStmt.executeQuery(sql);
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        return null;
+		    }
+		}
+		
 		
 		public ResultSet devolverLibro(String fechaDev) {
 			try {
@@ -354,7 +370,7 @@ public conexionBase() {
 			}
 			return true;
 		}
-		
+//		
 		public ResultSet obtenerPrestamosMensuales(int indice) {
 			ResultSet resultado = null;
 			int mes = indice + 1;
@@ -419,6 +435,57 @@ public conexionBase() {
 			return resultado;
 		
 		}	
+//
+		public boolean aumentarExistencia (String nombreLibro) {
+			ResultSet resultado = null;
+			try {
+				Connection MyConn = DriverManager.getConnection(url1, user, password);
+				Statement myStmt = MyConn.createStatement();
+				String sql = "SELECT * FROM libros WHERE nombre = '" + nombreLibro + "'";
+			        resultado = myStmt.executeQuery(sql);
+			        if (resultado.next()) {
+			        	int existencia = resultado.getInt("existencia");
+			        	int actualizarCantidad = existencia + 1;
+			        	String actualizar = "UPDATE libros SET existencia =  " + actualizarCantidad + " WHERE nombre = '" + nombreLibro + "' ";
+			        	myStmt.executeUpdate(actualizar);
+			        } else {
+			        	JOptionPane.showMessageDialog(null, "No se encuentra el libro");
+			        }
+			       
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			}
+			return true;
+		}
+		
+		
+		public boolean eliminarCliente(String nombre) {
+			 try {
+				 Connection MyConn = DriverManager.getConnection(url1, user, password);
+				 Statement myStmt  = MyConn.createStatement();
+				 String sql ="DELETE FROM clientes WHERE nombreCliente = '" + nombre + "'";
+			     myStmt.executeUpdate(sql);
+			     return true;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}	
+		}
+		
+		public ResultSet obtenerPrestadosPorCat(String categoria) {
+			ResultSet resultado = null;
+			try {
+				Connection MyConn = DriverManager.getConnection(url1, user, password);
+				Statement myStmt = MyConn.createStatement();
+				String sql = "SELECT clientes.nombreCliente, clientes.nombreLibro " + "FROM clientes " + "JOIN libros ON clientes.nombreLibro = libros.nombre " +"WHERE libros.categoria = '" + categoria + "'";
+				resultado = myStmt.executeQuery(sql);
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+			return resultado;
+		}
 		
 	
 }
